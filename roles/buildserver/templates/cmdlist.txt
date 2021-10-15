@@ -1,0 +1,7 @@
+/usr/lib64/ccache/c++
+/usr/lib64/ccache/cc
+/usr/lib64/ccache/g++
+/usr/lib64/ccache/gcc
+/usr/lib64/ccache/x86_64-redhat-linux-c++
+/usr/lib64/ccache/x86_64-redhat-linux-g++
+/usr/lib64/ccache/x86_64-redhat-linux-gcc

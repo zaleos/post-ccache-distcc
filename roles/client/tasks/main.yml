@@ -1,0 +1,10 @@
+---
+# This playbook will configure the build client
+
+- name: Generate an OpenSSH keypair
+  community.crypto.openssh_keypair:
+    path: /home/vagrant/.ssh/id_ecdsa
+    type: ecdsa
+    owner: vagrant
+    group: vagrant
+  register: client_keypair_data

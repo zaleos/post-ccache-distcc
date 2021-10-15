@@ -1,0 +1,21 @@
+---
+# This playbook deploys the client and server configuration for building C++
+# in a distributed fashion
+
+- name: Install and configure common build tools
+  hosts: all
+  become: yes
+  roles:
+    - common
+
+- name: Install and configure build client
+  hosts: clients
+  become: yes
+  roles:
+    - client
+
+- name: Install and configure distributed compilation tools
+  hosts: buildservers
+  become: yes
+  roles:
+    - buildserver

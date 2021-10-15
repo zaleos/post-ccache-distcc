@@ -1,0 +1,22 @@
+---
+# This playbook will install the build tools common to client and server
+
+- name: Install EPEL
+  yum:
+    name: epel-release
+    state: installed
+    update_cache: yes
+
+- name: Install development tools
+  yum:
+    enablerepo: powertools
+    name:
+      - "@development tools"
+      - make
+      - cmake
+      - ccache
+      - distcc
+      - libarchive # This library is required for CMake
+    state: latest
+    update_cache: yes
+

@@ -1,0 +1,37 @@
+---
+# This playbook will install the distcc server
+
+- name: Install distcc-server
+  yum:
+    enablerepo: powertools
+    name: distcc-server
+    state: latest
+    update_cache: yes
+
+- name: Set authorized key for user vagrant copying it from buildclient
+  ansible.posix.authorized_key:
+    user: vagrant
+    state: present
+    key: "{{ hostvars['buildclient']['client_keypair_data']['public_key'] }}"
+  when: hostvars['buildclient'] is defined
+
+- name: Add distcc cmdlist file
+  ansible.builtin.template:
+    src: cmdlist.txt
+    dest: /home/vagrant/distcc_cmdlist.cfg
+    owner: vagrant
+    group: vagrant
+
+- name: Bashrc file
+  ansible.builtin.template:
+    src: bashrc
+    dest: /home/vagrant/.bashrc
+    owner: vagrant
+    group: vagrant
+
+- name: Create .ccache directory
+  ansible.builtin.file:
+    path: /home/vagrant/.ccache
+    state: directory
+    owner: vagrant
+    group: vagrant
