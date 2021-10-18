@@ -8,8 +8,8 @@ function _main() {
     setup_distcc_env
     setup_ccache_env
 
-    ccache -Ccz # Wipe local ccache, to force recompile on buildserver
-    source build-local.sh
+    ccache -Ccz # Wipe local ccache, to force request to the buildserver
+    do_build
 }
 
 function setup_distcc_env() {
@@ -58,6 +58,16 @@ function add_ip_to_known_hosts() {
     if ! grep --silent "^$IP" $FILE; then
         ssh-keyscan -t rsa $IP >> $FILE
     fi
+}
+
+function do_build() {
+    rm -rf build/* &&
+    pushd build >/dev/null &&
+    cmake .. &&
+    cmake --build . &&
+    popd >/dev/null
+
+    echo '>> Now run the project by executing "./build/Hello"'
 }
 
 _main
