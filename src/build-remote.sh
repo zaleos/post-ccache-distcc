@@ -8,13 +8,12 @@ function _main() {
     setup_distcc_env
     setup_ccache_env
 
-    ccache -Ccz # Wipe local ccache, to force request to the buildserver
     do_build
 }
 
 function setup_distcc_env() {
     # These settings are optional, but force compilation on remote hosts
-    export DISTCC_VERBOSE=1          # Enable verbose debugg logs
+    # export DISTCC_VERBOSE=1        # Uncomment this to enable verbose debug logs
     export DISTCC_FALLBACK=0         # Disable local compilation fallback
     export DISTCC_SKIP_LOCAL_RETRY=1 # Disable local compilation retry
 }
